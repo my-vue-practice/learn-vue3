@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <button @click="increment">increment</button>
+    <p>count: {{ state.count }}</p>
+    <p>double: {{ state.double }}</p>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { computed, onMounted, reactive } from 'vue';
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  setup() {
+    // const count = ref(0);
+    // console.log('[count]', count);
+    // const double = computed(() => count.value * 2);
+    const state = reactive({
+      count: 0,
+      double: computed(() => state.count * 2),
+    });
+    const increment = () => {
+      state.count++;
+    };
+
+    onMounted(() => {
+      console.log('mounted!');
+    });
+
+    return {
+      state,
+      increment,
+    };
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss" scoped></style>
