@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learn vue3</title>
+
+  <script src="./vue3.js"></script>
+</head>
+
+<body>
+  <h2>learn vue3</h2>
+  <div id="app"></div>
+
+
+  <script>
+    const { reactive, computed, watchEffect } = Vue;
+    function setup() {
+      const state = reactive({
+        count: 0,
+        double: computed(() => state.count * 2)
+      });
+      const increment = () => { state.count++ };
+      return {
+        state, increment
+      }
+    }
+
+    const renderContext = setup();
+
+    console.log('[renderContext]', renderContext);
+    
+
+
+  </script>
+</body>
+
+</html>
