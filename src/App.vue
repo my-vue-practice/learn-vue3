@@ -16,10 +16,11 @@ export default {
   setup() {
     const { count, increment } = useCount();
     const mousePosition = useMousePosition();
-    // 结构赋值，会导致响应式丢失。
+    // 解构和展开会导致丢失响应式。
     // const { x, y } = mousePosition;
     // console.log({ x, y });
-    // return {mousePosition: {x, y}} // x、y无法响应式
+    // return {mousePosition: {x, y}} // 解构会导致响应式丢失。x、y无法响应式
+    // return {mousePosition: {...mousePosition}} // 展开会导致响应式丢失。x、y无法响应式
     return { state: { count, mousePosition }, increment };
   },
 };
