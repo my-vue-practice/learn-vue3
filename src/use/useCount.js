@@ -18,7 +18,7 @@ export function useCount() {
   });
 
   return {
-    state,
+    count: state,
     increment,
   };
 }
