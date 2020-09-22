@@ -11,29 +11,45 @@
 
 <body>
   <h2>learn vue3</h2>
-  <div id="app"></div>
-
+  <div id="app">
+    <!-- <button @click="increment">increment</button>
+    <p>state count: {{state.count}}</p> -->
+    <slot />
+  </div>
 
   <script>
-    const { reactive, computed, watchEffect } = Vue;
-    function setup() {
-      const state = reactive({
-        count: 0,
-        double: computed(() => state.count * 2)
-      });
-      const increment = () => { state.count++ };
-      return {
-        state, increment
-      }
+    const { h, createApp, ref, reactive, computed, watchEffect } = Vue;
+    const comp1 = {
+      setup(props) {
+        const state = reactive({
+          count: 0,
+          double: computed(() => state.count * 2)
+        });
+        const increment = () => { state.count++ };
+        watchEffect(() => {
+          console.log('[props]', props);
+        })
+        return {
+          state,
+          increment
+        }
+      },
+      template: `
+        <button @click="increment">increment</button>
+        <p>count: {{state.count}}</p>
+        <p>double: {{state.double}}</p>
+      `
     }
 
-    const renderContext = setup();
-
-    console.log('[renderContext]', renderContext);
-    
-
-
+    const App = {
+      components: [comp1],
+      setup() {
+        return () => h(comp1)
+      }
+    }
+    createApp(App).mount('#app');
   </script>
+
 </body>
 
 </html>
