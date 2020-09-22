@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learn vue3</title>
+
+  <script src="./vue3.js"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+</head>
+
+<body>
+  <h3>v-model</h3>
+  <hr>
+  <div id="app">
+    <!-- v-model 默认 === v-model:modelValue -->
+    <custom-comp v-model:mv="num"></custom-comp>
+    {{num}}
+  </div>
+
+  <script>
+    const { h, createApp, ref, reactive, computed, watchEffect } = Vue;
+
+    // 【局部】自定义组件
+    const CustomComp = {
+      props: {
+        mv: Number,
+      },
+      data() {
+        return {
+          count: this.mv
+        }
+      },
+      template: `
+      <div style="border:1px dashed red;padding:10px;">
+        <h4>自定义组件</h4>
+        <div>{{mv}}</div>
+        <p><button @click="$emit('update:mv', ++count)">+1</button></p>  
+      </div>
+      `
+    }
+
+    const App = {
+      components: {
+        CustomComp
+      },
+      data() {
+        return {
+          num: 2
+        }
+      }
+    }
+
+    const app = createApp(App);
+
+    app.mount('#app');
+  </script>
+
+</body>
+
+</html>
