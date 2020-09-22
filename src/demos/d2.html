@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>learn vue3</title>
+
+  <script src="./vue3.js"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+</head>
+
+<body>
+  <h3>learn vue3</h3>
+  <hr>
+  <div id="app">
+    <p>{{msg}}</p>
+    <p>count: {{count}} <button @click="count++">++</button></p>
+    <custom-comp></custom-comp>
+    <other-custom-comp></other-custom-comp>
+  </div>
+
+  <script>
+    const { h, createApp, ref, reactive, computed, watchEffect } = Vue;
+
+    // 【局部】自定义组件
+    const OtherCustomComp = {
+      template: `<div>我是第二个自定义组件</div>`
+    }
+
+    const App = {
+      components: {
+        // 'other-custom-comp': OtherCustomComp
+        // 简写：
+        OtherCustomComp
+      },
+      data() {
+        return { msg: 'Hello Vue3!', count: 0 }
+      },
+      mounted() {
+        console.log('mounted!!');
+      }
+    }
+
+    const app = createApp(App);
+
+    // 【全局】自定义组件
+    app.component('custom-comp', {
+      template: `<div>我是一个自定义组件</div>`
+    })
+
+    app.mount('#app');
+  </script>
+
+</body>
+
+</html>
